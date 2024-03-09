@@ -1,0 +1,49 @@
+.box-auto {
+  position: relative;
+  .content {
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    border: 1px solid #acacac !important;
+    max-height: 225px;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 2px;
+    position: absolute;
+    left: 0;
+    top: 56px;
+    z-index: 9999;
+    background-color: #fff;
+    margin: 8px;
+    width: 25ch;
+    overflow-y: auto;
+    scrollbar-width: thin; /* "auto" for default browser style */
+    scrollbar-color: #acacac transparent; /* color of scrollbar track and thumb */
+
+    /* WebKit (Chrome, Safari) scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 6px; /* width of the scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent; /* color of the track */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #acacac; /* color of the thumb */
+      border-radius: 3px; /* roundness of the thumb */
+    }
+    .item {
+      padding: 16.5px 14px;
+      width: 100%;
+      cursor: pointer;
+      transform: all 0.3s ease;
+      font-size: 13px;
+      &:hover {
+        background-color: rgba(43, 43, 209, 0.103);
+      }
+    }
+  }
+}
