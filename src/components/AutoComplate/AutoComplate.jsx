@@ -4,14 +4,25 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import useClickOutside from "../../useClickOutside";
 import { useQuery } from "react-query";
+import { CircularProgress } from "@mui/material";
 
-function AutoComplate({ label, onSelect, data }) {
+function AutoComplate({ label, onSelect }) {
   let [toggle, setToggle] = useState(false);
   let domNode = useClickOutside(() => {
     setToggle(false);
   });
 
-  const [filteredData, setFilteredData] = useState(data);
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:3000/movies");
+    return await response.json();
+  };
+
+  const { isLoading, error, data } = useQuery("movies", fetchData, {
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 1 * 60 * 1000,
+  });
+
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -87,7 +98,13 @@ function AutoComplate({ label, onSelect, data }) {
 
       {toggle && (
         <div className="content">
-          {filteredData.length === 0 ? (
+          {error ? (
+            <div className="error-message">
+              Failed to load movies. Please try again.
+            </div>
+          ) : isLoading ? (
+            <CircularProgress size={20} />
+          ) : filteredData.length === 0 ? (
             <div className="item" onClick={() => setToggle(false)}>
               <span>No results found</span>
             </div>
